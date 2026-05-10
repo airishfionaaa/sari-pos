@@ -1,0 +1,26 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /sari-pos/
+
+  RewriteRule ^\.env$            - [F,L]
+  RewriteRule ^\.env\.example$   - [F,L]
+  RewriteRule ^database/         - [F,L]
+  RewriteRule ^logs/             - [F,L]
+  RewriteRule ^src/              - [F,L]
+  RewriteRule ^config/           - [F,L]
+  RewriteRule ^views/            - [F,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+ServerSignature Off
